@@ -50,7 +50,7 @@ const App = () => {
     };
   }, []);
 
-  if (!channel) return <div>..... Annoying React problems as per usual</div>;
+  if (!channel) return <div>..... Perform a backflip to speed up the loading time</div>;
 
   return (
     <Chat client={chatClient} theme="messaging light">
