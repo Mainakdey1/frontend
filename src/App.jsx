@@ -5,8 +5,6 @@ import "stream-chat-react/dist/css/v2/index.css";
 
 const apiKey = "bknpx6eut9sj";
 const userId = "user1";
-const API_URL = import.meta.env.VITE_API_URL;
-console.log(API_URL);
 const chatClient = StreamChat.getInstance(apiKey);
 
 const App = () => {
@@ -24,11 +22,22 @@ const App = () => {
 
         await chatClient.connectUser({ id: userId, name: "User 1" }, data.token);
 
+        console.log("User connected. Now watching channel...");
         const channel = chatClient.channel("messaging", "ai-bot", { name: "AI Chat" });
 
-        await channel.watch();
-        console.log("Connected to channel:", channel.id);
-        setChannel(channel);
+        if (chatClient.user) {
+          await channel.watch();
+          console.log("Connected to channel:", channel.id);
+          setChannel(channel);
+        } else {
+          console.error("User connection failed!");
+        }
+
+
+        channel.on("message.new", (event) => {
+          console.log("New message received:", event.message.text);
+        });
+
       } catch (error) {
         console.error("Error connecting to chat:", error);
       }
@@ -41,7 +50,7 @@ const App = () => {
     };
   }, []);
 
-  if (!channel) return <div>..... Annoying react problems as per usual</div>;
+  if (!channel) return <div>..... Annoying React problems as per usual</div>;
 
   return (
     <Chat client={chatClient} theme="messaging light">
