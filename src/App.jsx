@@ -23,7 +23,7 @@ const App = () => {
         await chatClient.connectUser({ id: userId, name: "User 1" }, data.token);
 
         console.log("User connected. Now watching channel...");
-        const channel = chatClient.channel("messaging", "ai-bot", { name: "AI Chat" });
+        const channel = chatClient.channel("messaging", "Jeremy", { name: "AI Chat" });
 
         if (chatClient.user) {
           await channel.watch();
