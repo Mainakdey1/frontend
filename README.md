@@ -8,7 +8,7 @@ This is the memory implementation architecture for the app:
 
 The current look of the app:
 <p>
-  <img src="https://github.com/user-attachments/assets/11d05276-5523-4a95-ba00-2b2026c37e9d>
+  <img src="https://github.com/user-attachments/assets/11d05276-5523-4a95-ba00-2b2026c37e9d">
 
 </p>
 
