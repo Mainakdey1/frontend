@@ -17,31 +17,29 @@ The current look of the app:
 The application is mostly an attempt to combat memory issues in current LLMs where they are unable to retain infomation over multiple user sessions, and also data between sessions is not shared as much. To tackle this problem, I did 
 Data Parsing (Parse Module/MRS):
 Data from our API will be handled by MRS module so that the following can occur:
-a. Summarization
-: Store summarized versions of long conversations to save
-b. Relevance Filtering
-: Retrieve only relevant past interact ions based on the current query.
-c. Context Window Optimization
-: Keep track of token limits and inject only necessary
+a. Summarization: Store summarized versions of long conversations to save space.
+b. Relevance Filtering: Retrieve only relevant past interactions based on the current query.
+c. Context Window Optimization: Keep track of token limits and inject only necessary memory.
 We will use these strategies to keep performance of preprocessing data from our backend very high,
-so that overall extraction sp eed from our databases are speedy.
-Input data for our Data Storage System will be
-extracted directly from our parse module in our
+so that overall extraction speed from our databases are speedy.
+Input data for our Data Storage System will be extracted directly from our parse module in our
 FastAPI python backend, with no space wasted on additional processing. This data will then be
 passed on to a micro formatter module which will process the data to be received by the Data
 Storage System.
-D
-ata Storage System (Persistent Memory modules):
+Data Storage System (Persistent Memory modules):
 1. Databases: We can use any SQL based database here, such as Postgres or mysql. Of course nosql
 databases can be used too, where they could be a positive since they are good for high volume
-writes and RealT ime apps. Relevant information based on user queries can be extracted and injected
-into the context. This data can then be re extracted later and injected into the LLM prompt
+writes and RealTime apps. Relevant information based on user queries can be extracted and injected
+into the context. This data can then be re-extracted later and injected into the LLM prompt
 dynamically, while it parses the current query.
-2. Vector Database(Think Pinecon
-e): We could store embeddings from the past conversations here
+2. Vector Database(Think Pinecone): We could store embeddings from the past conversations here
 and when a new query comes in, retrieve relevant past conversations based on similarity. There is a
-possibility of having interleaved data retrieval from both relational databases and vector da tabase,
+possibility of having interleaved data retrieval from both relational databases and vector database,
 and to have a more performant data retrieval system by having distance based comparison between
 keywords from the two systems.
-Data Retrieval System():
-It is very necessary that redundant data is not processed and data is let out of our persistent memory f our persistent memory modules only when they match a high standard of accuracy. In order to accomplish this, a modules only when they match a high standard of accuracy. In order to accomplish this, a comparator module will process the data coming out from queries made to the relational database comparator module will process the data coming out from queries made to the relational database and the vector database, to make sure only matcand the vector database, to make sure only matching dataset is retrieved. These results will be hing dataset is retrieved. These results will be reconstituted and made ready to be sent back to our API and consequently, the React application.reconstituted and made ready to be sent back to our API and consequently, the React application.
+Data Retrieval System(Semantics only):
+It is very necessary that redundant data is not processed and data is let out of our persistent memory
+modules only when they match a high standard of accuracy. In order to accomplish this, a
+comparator module will process the data coming out from queries made to the relational database
+and the vector database, to make sure only matching dataset is retrieved. These results will be
+reconstituted and made ready to be sent back to our API and consequently, the React application
